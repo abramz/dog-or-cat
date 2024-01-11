@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Canvas from "./components/Canvas";
+import EnsureFontsLoaded from "./components/EnsureFontsLoaded";
+import HideSplashScreen from "./components/HideSplashScreen";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <EnsureFontsLoaded>
+      <HideSplashScreen>
+        <GestureHandlerRootView style={styles.container}>
+          <Canvas />
+
+          <StatusBar style="auto" />
+        </GestureHandlerRootView>
+      </HideSplashScreen>
+    </EnsureFontsLoaded>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "stretch",
+    backgroundColor: "#b7cece",
   },
 });
