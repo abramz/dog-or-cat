@@ -8,19 +8,22 @@ import {
   END_THRESHOLD_VERTICAL,
 } from "../constants";
 import { ScreenSide } from "../types/ScreenSide";
-import { usePanGesture } from "../context/PanGesture";
+import { PanGestureContext, usePanGesture } from "../context/PanGesture";
 
 export interface PanHandlerProps {
   onUpdate: (side: ScreenSide | undefined) => void;
   onComplete: () => void;
 }
 
-export default function PanHandler({
+export function PanHandlerInternal({
+  positionX,
+  positionY,
+  rotation,
+  elevation,
   children,
   onUpdate,
   onComplete,
-}: PropsWithChildren<PanHandlerProps>): ReactNode {
-  const { positionX, positionY, rotation, elevation } = usePanGesture();
+}: PropsWithChildren<PanHandlerProps & PanGestureContext>): ReactNode {
   const gesture = Gesture.Pan()
     .withTestId("pan-gesture")
     .onStart(() => {
@@ -29,28 +32,21 @@ export default function PanHandler({
     .onUpdate((e) => {
       positionX.value = e.translationX;
       positionY.value = Math.min(e.translationY, 0);
-      let horizontalProgress = 0;
-      if (e.translationX >= 0) {
-        horizontalProgress = Math.min(
-          e.translationX / END_THRESHOLD_HORIZONTAL,
-          1
-        );
-      } else {
-        horizontalProgress = Math.max(
-          e.translationX / END_THRESHOLD_HORIZONTAL,
-          -1
-        );
-      }
-      const verticalProgress = Math.max(
-        e.translationY / END_THRESHOLD_VERTICAL,
-        -1
-      );
 
-      if (verticalProgress === -1) {
+      const horizontalProgress = e.translationX / END_THRESHOLD_HORIZONTAL;
+      const verticalProgress = e.translationY / END_THRESHOLD_VERTICAL;
+
+      console.log(e.translationX, e.translationY);
+      console.log(horizontalProgress, verticalProgress);
+
+      if (
+        verticalProgress <= -1 &&
+        Math.abs(verticalProgress) > Math.abs(horizontalProgress)
+      ) {
         runOnJS(onUpdate)(ScreenSide.top);
-      } else if (horizontalProgress === 1) {
+      } else if (horizontalProgress >= 1) {
         runOnJS(onUpdate)(ScreenSide.right);
-      } else if (horizontalProgress === -1) {
+      } else if (horizontalProgress <= -1) {
         runOnJS(onUpdate)(ScreenSide.left);
       } else {
         runOnJS(onUpdate)(undefined);
@@ -68,4 +64,17 @@ export default function PanHandler({
     });
 
   return <GestureDetector gesture={gesture}>{children}</GestureDetector>;
+}
+
+export default function PanHandler({
+  children,
+  ...props
+}: PropsWithChildren<PanHandlerProps>): ReactNode {
+  const gestureValues = usePanGesture();
+
+  return (
+    <PanHandlerInternal {...props} {...gestureValues}>
+      {children}
+    </PanHandlerInternal>
+  );
 }

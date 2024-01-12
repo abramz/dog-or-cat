@@ -4,5 +4,8 @@ export const BASE_ELEVATION = 2;
 export const DRAG_ELEVATION = 8;
 export const END_POSITION_HORIZONTAL = 200;
 export const END_THRESHOLD_HORIZONTAL = END_POSITION_HORIZONTAL / 2;
-export const END_POSITION_VERTICAL = 150;
+export const END_POSITION_VERTICAL = 200;
 export const END_THRESHOLD_VERTICAL = END_POSITION_VERTICAL / 2;
+
+export const WIDTH_SCALE = 0.9;
+export const HEIGHT_SCALE = 0.8;

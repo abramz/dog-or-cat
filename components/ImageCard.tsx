@@ -2,20 +2,29 @@ import { ReactNode, useMemo } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { Image } from "expo-image";
-import { BASE_ELEVATION } from "../constants";
+import { BASE_ELEVATION, HEIGHT_SCALE, WIDTH_SCALE } from "../constants";
 import { ImageData } from "../types/Image";
-import { usePanGesture } from "../context/PanGesture";
+import { PanGestureContext, usePanGesture } from "../context/PanGesture";
 
 export interface ImageCardProps {
   image: ImageData;
 }
 
-export default function ImageCard({ image }: ImageCardProps): ReactNode {
-  const { positionX, positionY, rotation, elevation } = usePanGesture();
-  const dimensions = useWindowDimensions();
-
-  const width = useMemo(() => dimensions.width * 0.9, [dimensions.width]);
-  const maxHeight = useMemo(() => dimensions.height * 0.8, [dimensions.height]);
+export function ImageCardInternal({
+  image,
+  screenWidth,
+  screenHeight,
+  positionX,
+  positionY,
+  rotation,
+  elevation,
+}: {
+  screenWidth: number;
+  screenHeight: number;
+} & ImageCardProps &
+  PanGestureContext): ReactNode {
+  const width = useMemo(() => screenWidth * WIDTH_SCALE, [screenWidth]);
+  const maxHeight = useMemo(() => screenHeight * HEIGHT_SCALE, [screenHeight]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -40,6 +49,20 @@ export default function ImageCard({ image }: ImageCardProps): ReactNode {
         accessibilityLabel={image.altText}
       />
     </Animated.View>
+  );
+}
+
+export default function ImageCard(props: ImageCardProps): ReactNode {
+  const animationValues = usePanGesture();
+  const dimensions = useWindowDimensions();
+
+  return (
+    <ImageCardInternal
+      screenWidth={dimensions.width}
+      screenHeight={dimensions.height}
+      {...props}
+      {...animationValues}
+    />
   );
 }
 
