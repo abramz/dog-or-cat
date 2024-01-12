@@ -36,9 +36,6 @@ export function PanHandlerInternal({
       const horizontalProgress = e.translationX / END_THRESHOLD_HORIZONTAL;
       const verticalProgress = e.translationY / END_THRESHOLD_VERTICAL;
 
-      console.log(e.translationX, e.translationY);
-      console.log(horizontalProgress, verticalProgress);
-
       if (
         verticalProgress <= -1 &&
         Math.abs(verticalProgress) > Math.abs(horizontalProgress)
