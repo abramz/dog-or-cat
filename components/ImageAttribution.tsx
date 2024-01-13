@@ -1,14 +1,10 @@
 import { ReactNode } from "react";
-import { ImageData } from "../types/Image";
 import { Linking, StyleSheet, Text, View } from "react-native";
+import { useImages } from "../context/Images";
 
-export interface ImageAttributionProps {
-  image: ImageData;
-}
+export default function ImageAttribution(): ReactNode {
+  const { currentImage } = useImages();
 
-export default function ImageAttribution({
-  image,
-}: ImageAttributionProps): ReactNode {
   return (
     <View style={styles.container}>
       <Text>{"Photo by "}</Text>
@@ -16,11 +12,11 @@ export default function ImageAttribution({
         style={styles.link}
         onPress={() =>
           Linking.openURL(
-            `${image.accountUrl}?utm_source=dog-or-cat&utm_medium=referral`
+            `${currentImage.accountUrl}?utm_source=dog-or-cat&utm_medium=referral`
           )
         }
       >
-        {image.accountName}
+        {currentImage.accountName}
       </Text>
       <Text>{" on "}</Text>
       <Text
