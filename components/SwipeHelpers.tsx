@@ -5,7 +5,7 @@ import { ScreenSide } from "../types/ScreenSide";
 import HelperText from "./HelperText";
 
 export interface SwipeHelpersProps {
-  side: ScreenSide | undefined;
+  side: ScreenSide;
 }
 
 export default function SwipeHelpers({ side }: SwipeHelpersProps): ReactNode {

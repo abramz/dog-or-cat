@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import Canvas from "../components/Canvas";
 
 export default function App() {
@@ -16,7 +17,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "stretch",
     backgroundColor: "#b7cece",
   },
 });

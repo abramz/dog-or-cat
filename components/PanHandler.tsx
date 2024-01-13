@@ -11,8 +11,8 @@ import { ScreenSide } from "../types/ScreenSide";
 import { PanGestureContext, usePanGesture } from "../context/PanGesture";
 
 export interface PanHandlerProps {
-  onUpdate: (side: ScreenSide | undefined) => void;
-  onComplete: () => void;
+  onUpdate: (side: ScreenSide) => void;
+  onComplete: (side: ScreenSide) => void;
 }
 
 export function PanHandlerInternal({
@@ -46,18 +46,32 @@ export function PanHandlerInternal({
       } else if (horizontalProgress <= -1) {
         runOnJS(onUpdate)(ScreenSide.left);
       } else {
-        runOnJS(onUpdate)(undefined);
+        runOnJS(onUpdate)(ScreenSide.middle);
       }
 
       rotation.value = `${horizontalProgress * 10}deg`;
     })
-    .onEnd(() => {
+    .onEnd((e) => {
+      let finalSide = ScreenSide.middle;
+      const horizontalProgress = e.translationX / END_THRESHOLD_HORIZONTAL;
+      const verticalProgress = e.translationY / END_THRESHOLD_VERTICAL;
+      if (
+        verticalProgress <= -1 &&
+        Math.abs(verticalProgress) > Math.abs(horizontalProgress)
+      ) {
+        finalSide = ScreenSide.top;
+      } else if (horizontalProgress >= 1) {
+        finalSide = ScreenSide.right;
+      } else if (horizontalProgress <= -1) {
+        finalSide = ScreenSide.left;
+      }
+
       positionX.value = withTiming(0, { duration: 100 });
       positionY.value = withTiming(0, { duration: 100 });
       rotation.value = withTiming(`0deg`, { duration: 100 });
       elevation.value = withTiming(BASE_ELEVATION, { duration: 100 });
 
-      runOnJS(onComplete)();
+      runOnJS(onComplete)(finalSide);
     });
 
   return <GestureDetector gesture={gesture}>{children}</GestureDetector>;
