@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useColorScheme } from "react-native";
+import { StyleSheet, View, useColorScheme } from "react-native";
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,7 +8,6 @@ import {
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import EnsureFontsLoaded from "../components/EnsureFontsLoaded";
-import HideSplashScreen from "../components/HideSplashScreen";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -23,17 +22,23 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout(): ReactNode {
   const colorScheme = useColorScheme();
+
   return (
-    <EnsureFontsLoaded>
-      <HideSplashScreen>
+    <View style={styles.container}>
+      <EnsureFontsLoaded>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="demo" options={{ headerShown: false }} />
           </Stack>
         </ThemeProvider>
-      </HideSplashScreen>
-    </EnsureFontsLoaded>
+      </EnsureFontsLoaded>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "#b7cece" },
+});

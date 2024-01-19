@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "stretch",
     justifyContent: "center",
-    zIndex: 1,
   },
   box: {
     position: "absolute",

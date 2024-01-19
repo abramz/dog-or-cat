@@ -24,7 +24,7 @@ If the development version is installed, it will need to connect to the developm
 
 - [x] drag images to the left/top/right
 - [x] have many images that can be iterated through repeatedly
-- [ ] have some sort of demo thing so folks know what to do
+- [x] have some sort of demo thing so folks know what to do
 - [ ] github pages integration
 - [ ] organize things
 - [ ] learn how to test gestures/animations

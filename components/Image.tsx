@@ -1,7 +1,6 @@
 import { ReactNode, useMemo } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
-import { Image as ExpoImage } from "expo-image";
-import Animated, {
+import {
   Easing,
   FadeIn,
   FadeOut,
@@ -10,8 +9,7 @@ import Animated, {
 import { ImageData } from "../types/Image";
 import { BASE_ELEVATION, HEIGHT_SCALE, WIDTH_SCALE } from "../constants";
 import { usePanGesture } from "../context/PanGesture";
-
-const AnimatedExpoImage = Animated.createAnimatedComponent(ExpoImage);
+import AnimatedExpoImage from "./AnimatedImage";
 
 export interface ImageProps {
   image: ImageData;
@@ -59,6 +57,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     backgroundColor: "#fff",
     borderWidth: 3,
+    borderStyle: "solid",
     elevation: BASE_ELEVATION,
     zIndex: 10,
   },

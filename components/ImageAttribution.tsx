@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     flexWrap: "wrap",
-    zIndex: 1,
   },
   link: {
     fontStyle: "italic",

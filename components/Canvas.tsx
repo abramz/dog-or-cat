@@ -15,11 +15,11 @@ export default function Canvas(): ReactNode {
   return (
     <View style={styles.container}>
       <ImagesContextProvider>
-        <ImageStack onUpdate={setSide} onComplete={handleOnComplete} />
-
         <SwipeHelpers side={side} />
 
         <ImageAttribution />
+
+        <ImageStack onUpdate={setSide} onComplete={handleOnComplete} />
       </ImagesContextProvider>
     </View>
   );
@@ -30,5 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#b7cece",
   },
 });
