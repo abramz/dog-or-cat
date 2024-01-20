@@ -8,13 +8,13 @@ export const HAS_SEEN_DEMO_FLAG = "dog-or-cat-has-seen-demo";
 
 export interface UseHasSeenDemoReturnValue {
   getHasSeenDemo: (
-    callback?: CallbackWithResult<string>
+    callback?: CallbackWithResult<string>,
   ) => Promise<string | null>;
   setHasSeenDemo: (value: string, callback?: Callback) => Promise<void>;
 }
 
-export default function useHasSeenDemo() {
-  const { getItem, setItem, removeItem } = useAsyncStorage(HAS_SEEN_DEMO_FLAG);
+export default function useHasSeenDemo(): UseHasSeenDemoReturnValue {
+  const { getItem, setItem } = useAsyncStorage(HAS_SEEN_DEMO_FLAG);
 
   return { getHasSeenDemo: getItem, setHasSeenDemo: setItem };
 }

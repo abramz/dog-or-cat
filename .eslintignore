@@ -1,0 +1,6 @@
+.expo
+.vscode
+assets
+dist
+node_modules
+public

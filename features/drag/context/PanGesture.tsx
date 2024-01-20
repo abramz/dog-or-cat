@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactNode, createContext, useContext } from "react";
 import { SharedValue, useSharedValue } from "react-native-reanimated";
-import { BASE_ELEVATION } from "../constants";
+
+import { BASE_ELEVATION } from "../../../constants";
 
 export interface PanGestureContext {
   positionX: SharedValue<number>;
@@ -29,7 +30,7 @@ export function usePanGesture(): PanGestureContext {
 
   if (!context) {
     throw new Error(
-      "usePanGesture should be used inside of a PanGestureProvider"
+      "usePanGesture should be used inside of a PanGestureProvider",
     );
   }
 

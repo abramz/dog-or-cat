@@ -6,10 +6,10 @@ import {
   useContext,
   useState,
 } from "react";
-import { ImageData } from "../types/Image";
 
-import dogs from "../seed/dogs.json";
-import cats from "../seed/cats.json";
+import cats from "../../../seed/cats.json";
+import dogs from "../../../seed/dogs.json";
+import { ImageData } from "../../../types/Image";
 
 const images: ImageData[] = [];
 const dogCount = dogs.length;
@@ -19,7 +19,7 @@ let catIdx = 0;
 while (dogIdx < dogCount || catIdx < catCount) {
   const random = Math.random();
   if (
-    (dogIdx < dogCount && catIdx == catCount) ||
+    (dogIdx < dogCount && catIdx === catCount) ||
     (dogIdx < dogCount && random < 0.49)
   ) {
     images.push(dogs[dogIdx]);

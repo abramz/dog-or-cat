@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
+
 import Image from "./Image";
-import { ImageData } from "../types/Image";
-import { PanGestureProvider } from "../context/PanGesture";
 import PanHandler from "./PanHandler";
-import { ScreenSide } from "../types/ScreenSide";
+import { ImageData } from "../../../types/Image";
+import { ScreenSide } from "../../../types/ScreenSide";
+import { PanGestureProvider } from "../context/PanGesture";
 
 export interface DraggableImageProps {
   image: ImageData;

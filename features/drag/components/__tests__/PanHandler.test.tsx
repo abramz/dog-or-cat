@@ -1,13 +1,14 @@
+import { render } from "@testing-library/react-native";
 import { View } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
 import { PanGesture, State } from "react-native-gesture-handler";
 import {
   fireGestureHandler,
   getByGestureTestId,
 } from "react-native-gesture-handler/jest-utils";
+import { useSharedValue } from "react-native-reanimated";
+
+import { ScreenSide } from "../../../../types/ScreenSide";
 import { PanHandlerInternal, PanHandlerProps } from "../PanHandler";
-import { render } from "@testing-library/react-native";
-import { ScreenSide } from "../../types/ScreenSide";
 
 function GestureComponent(props: PanHandlerProps) {
   const positionX = useSharedValue(0);
@@ -47,7 +48,7 @@ describe("<PanHandler />", () => {
 
   it("should call onUpdate with `left` when reaching the left side threshold", () => {
     render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />
+      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
     );
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
@@ -65,7 +66,7 @@ describe("<PanHandler />", () => {
 
   it("should call onUpdate with `right` when reaching the right side threshold", () => {
     render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />
+      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
     );
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
@@ -83,7 +84,7 @@ describe("<PanHandler />", () => {
 
   it("should call onUpdate with `top` when reaching the top threshold", () => {
     render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />
+      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
     );
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
@@ -101,7 +102,7 @@ describe("<PanHandler />", () => {
 
   it("should call onUpdate with `left` when farther past the left threshold than the top threshold", () => {
     render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />
+      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
     );
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
@@ -119,7 +120,7 @@ describe("<PanHandler />", () => {
 
   it("should call onComplete when the gesture ends", () => {
     render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />
+      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
     );
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [

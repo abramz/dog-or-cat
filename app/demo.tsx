@@ -1,46 +1,19 @@
-import { useAssets } from "expo-asset";
-import { ReactNode, useEffect } from "react";
-import { StyleSheet } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import HideSplashScreen from "../components/HideSplashScreen";
-import Demo from "../components/Demo";
+import { Asset } from "expo-asset";
+import { ReactNode } from "react";
+
+import EnsureSplashScreenHidden from "../components/gates/EnsureSplashScreenHidden";
+import Demo from "../features/demo/components/Demo";
+import EnsureAssetLoaded from "../features/demo/gates/EnsureAssetLoaded";
 
 export default function DemoScreen(): ReactNode {
-  const [assets, error] = useAssets(
-    require("../assets/images/dogorcat_howto.png")
-  );
-
-  useEffect(() => {
-    if (error) {
-      throw error;
-    }
-  }, [error]);
-
-  if (!assets) {
-    return null;
-  }
-
   return (
-    <HideSplashScreen>
-      <GestureHandlerRootView style={styles.container}>
-        <Demo demoAsset={assets[0]} />
-      </GestureHandlerRootView>
-    </HideSplashScreen>
+    <EnsureAssetLoaded
+      moduleId={require("../assets/images/dogorcat_howto.png")}
+      render={(asset: Asset) => (
+        <EnsureSplashScreenHidden>
+          <Demo demoAsset={asset} />
+        </EnsureSplashScreenHidden>
+      )}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  background: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: 16,
-  },
-  text: {
-    fontFamily: "TitanOne",
-    fontSize: 30,
-  },
-});

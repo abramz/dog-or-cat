@@ -6,10 +6,11 @@ import {
   FadeOut,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { ImageData } from "../types/Image";
-import { BASE_ELEVATION, HEIGHT_SCALE, WIDTH_SCALE } from "../constants";
-import { usePanGesture } from "../context/PanGesture";
+
 import AnimatedExpoImage from "./AnimatedImage";
+import { BASE_ELEVATION, HEIGHT_SCALE, WIDTH_SCALE } from "../../../constants";
+import { ImageData } from "../../../types/Image";
+import { usePanGesture } from "../context/PanGesture";
 
 export interface ImageProps {
   image: ImageData;
@@ -19,11 +20,11 @@ export default function Image({ image }: ImageProps): ReactNode {
   const dimensions = useWindowDimensions();
   const width = useMemo(
     () => dimensions.width * WIDTH_SCALE,
-    [dimensions.width]
+    [dimensions.width],
   );
   const maxHeight = useMemo(
     () => dimensions.height * HEIGHT_SCALE,
-    [dimensions.height]
+    [dimensions.height],
   );
 
   const { positionX, positionY, elevation, rotation } = usePanGesture();

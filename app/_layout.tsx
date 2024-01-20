@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-import { StyleSheet, View, useColorScheme } from "react-native";
 import {
   DarkTheme,
   DefaultTheme,
@@ -7,12 +5,13 @@ import {
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import EnsureFontsLoaded from "../components/EnsureFontsLoaded";
+import { ReactNode } from "react";
+import { StyleSheet, View, useColorScheme } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+import EnsureFontsLoaded from "../components/gates/EnsureFontsLoaded";
+
+export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   initialRouteName: "index",
@@ -25,7 +24,7 @@ export default function RootLayout(): ReactNode {
 
   return (
     <View style={styles.background}>
-      <View style={styles.container}>
+      <GestureHandlerRootView style={styles.container}>
         <EnsureFontsLoaded>
           <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
@@ -36,7 +35,7 @@ export default function RootLayout(): ReactNode {
             </Stack>
           </ThemeProvider>
         </EnsureFontsLoaded>
-      </View>
+      </GestureHandlerRootView>
     </View>
   );
 }

@@ -1,46 +1,17 @@
-import { useEffect, useState } from "react";
-import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import Canvas from "../components/Canvas";
-import HideSplashScreen from "../components/HideSplashScreen";
-import useHasSeenDemo from "../hooks/useHasSeenDemo";
-
-export const HAS_SEEN_DEMO_FLAG = "dog-or-cat-has-seen-demo";
+import EnsureSplashScreenHidden from "../components/gates/EnsureSplashScreenHidden";
+import EnsureHasSeenDemo from "../features/demo/gates/EnsureHasSeenDemo";
+import Canvas from "../features/drag/components/Canvas";
 
 export default function App() {
-  const [showContent, setShowContent] = useState(false);
-  const { getHasSeenDemo } = useHasSeenDemo();
-
-  useEffect(() => {
-    getHasSeenDemo().then((result) => {
-      if (result) {
-        setShowContent(true);
-      } else {
-        router.navigate("/demo");
-      }
-    });
-  }, []);
-
-  if (!showContent) {
-    return null;
-  }
-
   return (
-    <HideSplashScreen>
-      <GestureHandlerRootView style={styles.container}>
+    <EnsureHasSeenDemo>
+      <EnsureSplashScreenHidden>
         <Canvas />
 
         <StatusBar style="auto" />
-      </GestureHandlerRootView>
-    </HideSplashScreen>
+      </EnsureSplashScreenHidden>
+    </EnsureHasSeenDemo>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

@@ -1,19 +1,34 @@
 import { Asset } from "expo-asset";
 import { Image } from "expo-image";
-import { ReactNode, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import useHasSeenDemo from "../hooks/useHasSeenDemo";
 import { router } from "expo-router";
+import { ReactNode, useCallback, useEffect, useState } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated, { FadeIn } from "react-native-reanimated";
+
+import { DEMO_TAP_TO_CONTINUE } from "../../../constants/strings";
+import useHasSeenDemo from "../hooks/useHasSeenDemo";
 
 export interface DemoProps {
   demoAsset: Asset;
 }
 
 export default function Demo({ demoAsset }: DemoProps): ReactNode {
-  const { setHasSeenDemo } = useHasSeenDemo();
   const [allowContinue, setAllowContinue] = useState(false);
+
+  const { setHasSeenDemo } = useHasSeenDemo();
+
+  const handleDemoComplete = useCallback(async () => {
+    await setHasSeenDemo("1");
+    router.navigate("/");
+  }, [setHasSeenDemo]);
+
+  const tap = Gesture.Tap()
+    .enabled(allowContinue)
+    .runOnJS(true)
+    .onTouchesUp(() => {
+      handleDemoComplete();
+    });
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -25,26 +40,17 @@ export default function Demo({ demoAsset }: DemoProps): ReactNode {
     };
   }, []);
 
-  const tap = Gesture.Tap()
-    .enabled(allowContinue)
-    .runOnJS(true)
-    .onTouchesUp(() => {
-      setHasSeenDemo(`1`).then(() => {
-        router.navigate("/");
-      });
-    });
-
   return (
     <GestureDetector gesture={tap}>
       <View style={styles.container}>
         <Image style={styles.image} source={demoAsset} />
         {allowContinue ? (
-          <Animated.View entering={FadeIn.duration(500)}>
-            <Text style={styles.text}>{"Tap to continue"}</Text>
+          <Animated.View
+            entering={Platform.OS === "web" ? undefined : FadeIn.duration(500)}
+          >
+            <Text style={styles.text}>{DEMO_TAP_TO_CONTINUE}</Text>
           </Animated.View>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </View>
     </GestureDetector>
   );

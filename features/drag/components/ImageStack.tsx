@@ -1,28 +1,29 @@
 import { ReactNode, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
-import { ScreenSide } from "../types/ScreenSide";
-import { useImages } from "../context/Images";
+
 import DraggableImage from "./DraggableImage";
+import { ScreenSide } from "../../../types/ScreenSide";
+import { useImages } from "../../images/context/Images";
 
 export interface ImageStackProps {
-  onUpdate: (side: ScreenSide) => void;
-  onComplete: (side: ScreenSide) => void;
+  onImageUpdate: (side: ScreenSide) => void;
+  onImageComplete: (side: ScreenSide) => void;
 }
 
 export default function ImageStack({
-  onUpdate,
-  onComplete,
+  onImageUpdate,
+  onImageComplete,
 }: ImageStackProps): ReactNode {
   const { currentImage, changeImage } = useImages();
   const handleOnComplete = useCallback(
     (side: ScreenSide) => {
-      onComplete(side);
+      onImageComplete(side);
 
       if (side !== ScreenSide.middle) {
         changeImage();
       }
     },
-    [changeImage, onComplete]
+    [changeImage, onImageComplete],
   );
 
   return (
@@ -30,7 +31,7 @@ export default function ImageStack({
       <DraggableImage
         key={currentImage.id}
         image={currentImage}
-        onUpdate={onUpdate}
+        onUpdate={onImageUpdate}
         onComplete={handleOnComplete}
       />
     </View>

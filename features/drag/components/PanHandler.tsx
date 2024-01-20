@@ -1,13 +1,14 @@
 import { PropsWithChildren, ReactNode } from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS, withTiming } from "react-native-reanimated";
+
 import {
   BASE_ELEVATION,
   DRAG_ELEVATION,
   END_THRESHOLD_HORIZONTAL,
   END_THRESHOLD_VERTICAL,
-} from "../constants";
-import { ScreenSide } from "../types/ScreenSide";
+} from "../../../constants";
+import { ScreenSide } from "../../../types/ScreenSide";
 import { PanGestureContext, usePanGesture } from "../context/PanGesture";
 
 export interface PanHandlerProps {
