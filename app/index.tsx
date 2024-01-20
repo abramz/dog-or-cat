@@ -19,7 +19,7 @@ export default function App() {
       if (result) {
         setShowContent(true);
       } else {
-        router.replace("/demo");
+        router.navigate("/demo");
       }
     });
   }, []);

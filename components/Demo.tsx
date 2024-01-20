@@ -30,7 +30,7 @@ export default function Demo({ demoAsset }: DemoProps): ReactNode {
     .runOnJS(true)
     .onTouchesUp(() => {
       setHasSeenDemo(`1`).then(() => {
-        router.replace("/");
+        router.navigate("/");
       });
     });
 

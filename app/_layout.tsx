@@ -24,21 +24,29 @@ export default function RootLayout(): ReactNode {
   const colorScheme = useColorScheme();
 
   return (
-    <View style={styles.container}>
-      <EnsureFontsLoaded>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="demo" options={{ headerShown: false }} />
-          </Stack>
-        </ThemeProvider>
-      </EnsureFontsLoaded>
+    <View style={styles.background}>
+      <View style={styles.container}>
+        <EnsureFontsLoaded>
+          <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+          >
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="demo" options={{ headerShown: false }} />
+            </Stack>
+          </ThemeProvider>
+        </EnsureFontsLoaded>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#b7cece" },
+  background: {
+    flex: 1,
+    backgroundColor: "#b7cece",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  container: { flex: 1, width: "100%", maxWidth: 720 },
 });

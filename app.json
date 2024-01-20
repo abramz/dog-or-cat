@@ -30,7 +30,8 @@
     },
     "plugins": [["expo-router", { "root": "./app" }]],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/dog-or-cat/"
     },
     "extra": {
       "router": {

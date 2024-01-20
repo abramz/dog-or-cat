@@ -1,5 +1,5 @@
 import { ReactNode, useMemo } from "react";
-import { StyleSheet, useWindowDimensions } from "react-native";
+import { Platform, StyleSheet, useWindowDimensions } from "react-native";
 import {
   Easing,
   FadeIn,
@@ -44,8 +44,16 @@ export default function Image({ image }: ImageProps): ReactNode {
       placeholder={image.blurHash}
       source={image.imageUrl}
       accessibilityLabel={image.altText}
-      entering={FadeIn.duration(250).easing(Easing.ease)}
-      exiting={FadeOut.duration(200).easing(Easing.ease)}
+      entering={
+        Platform.OS === "web"
+          ? undefined
+          : FadeIn.duration(250).easing(Easing.ease)
+      }
+      exiting={
+        Platform.OS === "web"
+          ? undefined
+          : FadeOut.duration(200).easing(Easing.ease)
+      }
     />
   );
 }
@@ -53,6 +61,7 @@ export default function Image({ image }: ImageProps): ReactNode {
 const styles = StyleSheet.create({
   image: {
     height: "100%",
+    maxWidth: 720,
     borderRadius: 25,
     borderColor: "#fff",
     backgroundColor: "#fff",

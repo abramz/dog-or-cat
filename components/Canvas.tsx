@@ -28,6 +28,7 @@ export default function Canvas(): ReactNode {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#b7cece",
