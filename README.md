@@ -33,7 +33,7 @@ If the development version is installed, it will need to connect to the developm
 - [x] have some sort of demo thing so folks know what to do
 - [x] publish pages integration
 - [ ] proper animation on web
-- [ ] organize things
+- [x] organize things
 - [ ] learn how to test gestures/animations
 - [ ] add automated test coverage
 - [ ] use the unsplash API to get images
