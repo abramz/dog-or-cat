@@ -1,9 +1,10 @@
 import { render } from "@testing-library/react-native";
-import ChildComponent from "../../../../__fixtures__/ChildComponent";
-import EnsureDemoRuntime from "../EnsureDemoRuntime";
-import { DEMO_BLOCK_CONTINUE_TIMEOUT } from "../../../../constants";
-import { act } from "react-test-renderer";
 import { router } from "expo-router";
+import { act } from "react-test-renderer";
+
+import ChildComponent from "../../../../__fixtures__/ChildComponent";
+import { DEMO_BLOCK_CONTINUE_TIMEOUT } from "../../../../constants";
+import EnsureDemoRuntime from "../EnsureDemoRuntime";
 
 jest.mock("expo-router");
 jest.mock("../../hooks/useHasSeenDemo");
@@ -48,10 +49,10 @@ describe("<EnsureDemoRuntime />", () => {
     await handleComplete();
 
     expect(
-      require("../../hooks/useHasSeenDemo").mockSetHasSeenDemo as jest.Mock
+      require("../../hooks/useHasSeenDemo").mockSetHasSeenDemo as jest.Mock,
     ).toHaveBeenCalledTimes(1);
     expect(
-      require("../../hooks/useHasSeenDemo").mockSetHasSeenDemo as jest.Mock
+      require("../../hooks/useHasSeenDemo").mockSetHasSeenDemo as jest.Mock,
     ).toHaveBeenCalledWith("1");
   });
 

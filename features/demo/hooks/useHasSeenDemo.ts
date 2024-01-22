@@ -8,7 +8,7 @@ export const HAS_SEEN_DEMO_FLAG = "dog-or-cat-has-seen-demo";
 
 export interface UseHasSeenDemoReturnValue {
   getHasSeenDemo: (
-    callback?: CallbackWithResult<string>
+    callback?: CallbackWithResult<string>,
   ) => Promise<string | null>;
   setHasSeenDemo: (value: string, callback?: Callback) => Promise<void>;
 }
