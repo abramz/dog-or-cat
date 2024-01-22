@@ -53,6 +53,7 @@ export function PanHandlerInternal({
       rotation.value = `${horizontalProgress * 10}deg`;
     })
     .onEnd((e) => {
+      // math is the same as above, ideally this would be in a worklet or something that i can call from the UI thread
       let finalSide = ScreenSide.middle;
       const horizontalProgress = e.translationX / END_THRESHOLD_HORIZONTAL;
       const verticalProgress = e.translationY / END_THRESHOLD_VERTICAL;

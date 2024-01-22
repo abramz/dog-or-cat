@@ -5,26 +5,25 @@ import {
   fireGestureHandler,
   getByGestureTestId,
 } from "react-native-gesture-handler/jest-utils";
-import { useSharedValue } from "react-native-reanimated";
+import { SharedValue, useSharedValue } from "react-native-reanimated";
 
+import { BASE_ELEVATION, DRAG_ELEVATION } from "../../../../constants";
 import { ScreenSide } from "../../../../types/ScreenSide";
 import { PanHandlerInternal, PanHandlerProps } from "../PanHandler";
 
-function GestureComponent(props: PanHandlerProps) {
-  const positionX = useSharedValue(0);
-  const positionY = useSharedValue(0);
-  const rotation = useSharedValue("0deg");
-  const elevation = useSharedValue(0);
+jest.mock("react-native-reanimated");
 
+type TestProps = PanHandlerProps & {
+  positionX: SharedValue<number>;
+  positionY: SharedValue<number>;
+  rotation: SharedValue<string>;
+  elevation: SharedValue<number>;
+};
+
+function GestureComponent(props: TestProps) {
   return (
     <View>
-      <PanHandlerInternal
-        positionX={positionX}
-        positionY={positionY}
-        rotation={rotation}
-        elevation={elevation}
-        {...props}
-      >
+      <PanHandlerInternal {...props}>
         <View />
       </PanHandlerInternal>
     </View>
@@ -35,10 +34,31 @@ describe("<PanHandler />", () => {
   const onUpdateMock = jest.fn();
   const onCompleteMock = jest.fn();
 
+  let positionX: SharedValue<number>;
+  let positionY: SharedValue<number>;
+  let rotation: SharedValue<string>;
+  let elevation: SharedValue<number>;
+
+  let props: TestProps;
+
   beforeEach(() => {
     jest.useFakeTimers();
     onUpdateMock.mockReset();
     onCompleteMock.mockReset();
+
+    positionX = useSharedValue(0);
+    positionY = useSharedValue(0);
+    rotation = useSharedValue("0deg");
+    elevation = useSharedValue(BASE_ELEVATION);
+
+    props = {
+      onUpdate: onUpdateMock,
+      onComplete: onCompleteMock,
+      positionX,
+      positionY,
+      rotation,
+      elevation,
+    };
   });
 
   afterEach(() => {
@@ -46,10 +66,70 @@ describe("<PanHandler />", () => {
     jest.useRealTimers();
   });
 
+  it("should update positionX when the x position changes", () => {
+    const sequence = [0, -50, -100, -50, -0, 50, 100];
+    render(<GestureComponent {...props} />);
+
+    fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
+      { state: State.BEGAN, translationX: 0 },
+      ...sequence.map((v) => ({ state: State.ACTIVE, translationX: v })),
+      { state: State.END, translationX: 100 },
+    ]);
+
+    jest.runAllTimers();
+
+    expect(positionX.values).toEqual([...sequence, 0]);
+  });
+
+  it("should update positionY when the Y position changes, clamping <0", () => {
+    const matchSequence = [0, -50, -100, -50, -0];
+    const clampSequence = [50, 100];
+    const sequence = [...matchSequence, ...clampSequence];
+    render(<GestureComponent {...props} />);
+
+    fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
+      { state: State.BEGAN, translationY: 0 },
+      ...sequence.map((v) => ({ state: State.ACTIVE, translationY: v })),
+      { state: State.END, translationY: 100 },
+    ]);
+
+    jest.runAllTimers();
+
+    expect(positionY.values).toEqual([...matchSequence, 0, 0, 0]);
+  });
+
+  it("should update the rotation based on progress in the X direction", () => {
+    const sequence = [0, -50, -100, -50, -0, 50, 100];
+    const rotations = sequence.map((v) => `${v / 10}deg`);
+    render(<GestureComponent {...props} />);
+
+    fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
+      { state: State.BEGAN, translationX: 0 },
+      ...sequence.map((v) => ({ state: State.ACTIVE, translationX: v })),
+      { state: State.END, translationX: 100 },
+    ]);
+
+    jest.runAllTimers();
+
+    expect(rotation.values).toEqual([...rotations, "0deg"]);
+  });
+
+  it("should update elevation while the gesture is active", () => {
+    render(<GestureComponent {...props} />);
+
+    fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"));
+
+    jest.runAllTimers();
+
+    expect(elevation.values).toEqual([
+      BASE_ELEVATION,
+      DRAG_ELEVATION,
+      BASE_ELEVATION,
+    ]);
+  });
+
   it("should call onUpdate with `left` when reaching the left side threshold", () => {
-    render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
-    );
+    render(<GestureComponent {...props} />);
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
       { state: State.BEGAN, translationX: 0 },
@@ -65,9 +145,7 @@ describe("<PanHandler />", () => {
   });
 
   it("should call onUpdate with `right` when reaching the right side threshold", () => {
-    render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
-    );
+    render(<GestureComponent {...props} />);
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
       { state: State.BEGAN, translationX: 0 },
@@ -83,9 +161,7 @@ describe("<PanHandler />", () => {
   });
 
   it("should call onUpdate with `top` when reaching the top threshold", () => {
-    render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
-    );
+    render(<GestureComponent {...props} />);
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
       { state: State.BEGAN, translationX: 0, translationY: 0 },
@@ -101,9 +177,7 @@ describe("<PanHandler />", () => {
   });
 
   it("should call onUpdate with `left` when farther past the left threshold than the top threshold", () => {
-    render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
-    );
+    render(<GestureComponent {...props} />);
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
       { state: State.BEGAN, translationX: -0, translationY: 0 },
@@ -119,9 +193,7 @@ describe("<PanHandler />", () => {
   });
 
   it("should call onComplete when the gesture ends", () => {
-    render(
-      <GestureComponent onUpdate={onUpdateMock} onComplete={onCompleteMock} />,
-    );
+    render(<GestureComponent {...props} />);
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
       { state: State.BEGAN },

@@ -4,6 +4,7 @@ import {
   Easing,
   FadeIn,
   FadeOut,
+  SharedValue,
   useAnimatedStyle,
 } from "react-native-reanimated";
 
@@ -16,18 +17,22 @@ export interface ImageProps {
   image: ImageData;
 }
 
-export default function Image({ image }: ImageProps): ReactNode {
-  const dimensions = useWindowDimensions();
-  const width = useMemo(
-    () => dimensions.width * WIDTH_SCALE,
-    [dimensions.width],
-  );
-  const maxHeight = useMemo(
-    () => dimensions.height * HEIGHT_SCALE,
-    [dimensions.height],
-  );
-
-  const { positionX, positionY, elevation, rotation } = usePanGesture();
+export function InternalImage({
+  image,
+  width,
+  maxHeight,
+  positionX,
+  positionY,
+  elevation,
+  rotation,
+}: ImageProps & {
+  width: number;
+  maxHeight: number;
+  positionX: SharedValue<number>;
+  positionY: SharedValue<number>;
+  elevation: SharedValue<number>;
+  rotation: SharedValue<string>;
+}) {
   const animatedStyle = useAnimatedStyle(() => {
     return {
       elevation: elevation.value,
@@ -55,6 +60,30 @@ export default function Image({ image }: ImageProps): ReactNode {
           ? undefined
           : FadeOut.duration(200).easing(Easing.ease)
       }
+      testID="image"
+    />
+  );
+}
+
+export default function Image({ image }: ImageProps): ReactNode {
+  const dimensions = useWindowDimensions();
+  const width = useMemo(
+    () => dimensions.width * WIDTH_SCALE,
+    [dimensions.width],
+  );
+  const maxHeight = useMemo(
+    () => dimensions.height * HEIGHT_SCALE,
+    [dimensions.height],
+  );
+
+  const panValues = usePanGesture();
+
+  return (
+    <InternalImage
+      image={image}
+      width={width}
+      maxHeight={maxHeight}
+      {...panValues}
     />
   );
 }

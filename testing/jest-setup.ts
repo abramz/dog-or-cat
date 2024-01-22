@@ -1,6 +1,6 @@
 import "@testing-library/react-native/extend-expect";
 
-require("react-native-reanimated").setUpTests();
+jest.requireActual("react-native-reanimated").setUpTests();
 
 jest.mock("expo-asset");
 jest.mock("expo-font");
