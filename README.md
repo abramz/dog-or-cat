@@ -34,8 +34,8 @@ If the development version is installed, it will need to connect to the developm
 - [x] publish pages integration
 - [ ] proper animation on web
 - [x] organize things
-- [ ] learn how to test gestures/animations
-- [ ] add automated test coverage
+- [x] learn how to test gestures/animations - eh, I learned way to do it, not sure it is the best
+- [x] add automated test coverage
 - [ ] use the unsplash API to get images
 - [ ] something to add a release to github and/or update gh-pages
 
