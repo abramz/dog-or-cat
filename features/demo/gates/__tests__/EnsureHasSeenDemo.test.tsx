@@ -6,7 +6,6 @@ import ChildComponent, {
 } from "../../../../__fixtures__/ChildComponent";
 import EnsureHasSeenDemo from "../EnsureHasSeenDemo";
 
-jest.mock("expo-router", () => ({ router: { navigate: jest.fn() } }));
 jest.mock("../../hooks/useHasSeenDemo");
 
 describe("<EnsureHasSeenDemo />", () => {

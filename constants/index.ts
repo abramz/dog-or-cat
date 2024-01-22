@@ -9,3 +9,5 @@ export const END_THRESHOLD_VERTICAL = 100;
 
 export const WIDTH_SCALE = 0.9;
 export const HEIGHT_SCALE = 0.8;
+
+export const DEMO_BLOCK_CONTINUE_TIMEOUT = 6500; // 6.5s
