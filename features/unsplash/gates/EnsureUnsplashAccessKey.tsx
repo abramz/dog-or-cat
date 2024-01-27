@@ -10,13 +10,15 @@ export default function EnsureUnsplashAccessKey({
   const { retrieveKey } = useUnsplashAccessKey();
 
   useEffect(() => {
-    retrieveKey().then((result) => {
-      if (result) {
-        setShowContent(true);
-      } else {
-        router.navigate("/collect");
-      }
-    });
+    retrieveKey()
+      .then((result) => {
+        if (result) {
+          setShowContent(true);
+        } else {
+          router.navigate("/collect");
+        }
+      })
+      .catch(console.log);
   }, [retrieveKey]);
 
   if (!showContent) {
