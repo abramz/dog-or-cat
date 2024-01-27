@@ -1,0 +1,81 @@
+import { PropsWithChildren, ReactNode } from "react";
+import { Linking, StyleSheet, Text, TextStyle, View } from "react-native";
+
+export interface SimpleMarkdownProps {
+  text: string;
+  style?: TextStyle;
+}
+
+const LINK_REGEX = /\[.*?\|.*?\]/g;
+
+function Link({
+  href,
+  children,
+}: PropsWithChildren<{ href: string; style: TextStyle }>): ReactNode {
+  return (
+    <Text
+      style={styles.link}
+      onPress={() => {
+        Linking.openURL(href);
+      }}
+    >
+      {children}
+    </Text>
+  );
+}
+
+// NB: this works only for text with links
+// NB: do not put a link at the beginning of the text
+export default function SimpleMarkdown({
+  text,
+  style,
+}: SimpleMarkdownProps): ReactNode {
+  const children = [];
+  const matches = text.match(LINK_REGEX);
+
+  console.log(text, matches);
+
+  if (!matches) {
+    children.push(
+      <Text style={style} key={1}>
+        {text}
+      </Text>
+    );
+  } else {
+    console.log(matches);
+    const rest = text.split(LINK_REGEX);
+
+    rest.forEach((bit, index) => {
+      children.push(bit);
+
+      const nextLink = matches[index];
+      if (!nextLink) {
+        return;
+      }
+
+      const parts = nextLink.replace(/[\[\]]/g, "").split("|");
+
+      children.push(
+        <Link key={index + "-link"} href={parts[1]} style={style ?? {}}>
+          {parts[0]}
+        </Link>
+      );
+    });
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={style}>{children}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  link: { textDecorationLine: "underline" },
+});
