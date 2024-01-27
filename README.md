@@ -29,7 +29,6 @@ If the development version is installed, it will need to connect to the developm
 ## TODO
 
 - [ ] proper animation on web
-- [ ] use the unsplash API to get images
 - [ ] local image persistance
 
 ## Attribution
