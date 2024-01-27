@@ -33,16 +33,13 @@ export default function SimpleMarkdown({
   const children = [];
   const matches = text.match(LINK_REGEX);
 
-  console.log(text, matches);
-
   if (!matches) {
     children.push(
       <Text style={style} key={1}>
         {text}
-      </Text>
+      </Text>,
     );
   } else {
-    console.log(matches);
     const rest = text.split(LINK_REGEX);
 
     rest.forEach((bit, index) => {
@@ -53,12 +50,14 @@ export default function SimpleMarkdown({
         return;
       }
 
+      // the escaping is kinda important
+      // eslint-disable-next-line no-useless-escape
       const parts = nextLink.replace(/[\[\]]/g, "").split("|");
 
       children.push(
         <Link key={index + "-link"} href={parts[1]} style={style ?? {}}>
           {parts[0]}
-        </Link>
+        </Link>,
       );
     });
   }
@@ -77,5 +76,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  link: { textDecorationLine: "underline" },
+  link: { textDecorationLine: "underline", fontStyle: "italic" },
 });

@@ -11,3 +11,10 @@ export const WIDTH_SCALE = 0.9;
 export const HEIGHT_SCALE = 0.8;
 
 export const DEMO_BLOCK_CONTINUE_TIMEOUT = 6500; // 6.5s
+
+export const HAS_SEEN_DEMO_FLAG = "dog-or-cat-has-seen-demo";
+
+export const UNSPLASH_ACCESS_KEY_STORAGE_KEY = "dog-or-cat-unsplash-key";
+
+export const REPLACE_ARTIST = "{ARTIST}";
+export const REPLACE_ARTIST_HREF = `{ARTIST_HREF}`;

@@ -1,11 +1,9 @@
 import { ReactNode } from "react";
-import { Linking, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import {
-  ATTRIBUTION_ON,
-  ATTRIBUTION_PHOTO_BY,
-  ATTRIBUTION_UNSPLASH,
-} from "../../../constants/strings";
+import SimpleMarkdown from "../../../components/SimpleMarkdown";
+import { REPLACE_ARTIST, REPLACE_ARTIST_HREF } from "../../../constants";
+import { ATTRIBUTION } from "../../../constants/strings";
 import { useImages } from "../../images/context/Images";
 
 export default function ImageAttribution(): ReactNode {
@@ -13,28 +11,12 @@ export default function ImageAttribution(): ReactNode {
 
   return (
     <View style={styles.container}>
-      <Text>{ATTRIBUTION_PHOTO_BY}</Text>
-      <Text
-        style={styles.link}
-        onPress={() =>
-          Linking.openURL(
-            `${currentImage.accountUrl}?utm_source=dog-or-cat&utm_medium=referral`,
-          )
-        }
-      >
-        {currentImage.accountName}
-      </Text>
-      <Text>{ATTRIBUTION_ON}</Text>
-      <Text
-        style={styles.link}
-        onPress={() =>
-          Linking.openURL(
-            "https://unsplash.com/?utm_source=dog-or-cat&utm_medium=referral",
-          )
-        }
-      >
-        {ATTRIBUTION_UNSPLASH}
-      </Text>
+      <SimpleMarkdown
+        text={ATTRIBUTION.replace(
+          REPLACE_ARTIST,
+          currentImage.accountName,
+        ).replace(REPLACE_ARTIST_HREF, currentImage.accountUrl)}
+      />
     </View>
   );
 }
