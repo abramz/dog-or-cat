@@ -4,7 +4,7 @@ import {
   CallbackWithResult,
 } from "@react-native-async-storage/async-storage/lib/typescript/types";
 
-export const HAS_SEEN_DEMO_FLAG = "dog-or-cat-has-seen-demo";
+import { HAS_SEEN_DEMO_FLAG } from "../../../constants";
 
 export interface UseHasSeenDemoReturnValue {
   getHasSeenDemo: (

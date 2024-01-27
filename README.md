@@ -28,16 +28,9 @@ If the development version is installed, it will need to connect to the developm
 
 ## TODO
 
-- [x] drag images to the left/top/right
-- [x] have many images that can be iterated through repeatedly
-- [x] have some sort of demo thing so folks know what to do
-- [x] publish pages integration
 - [ ] proper animation on web
-- [x] organize things
-- [x] learn how to test gestures/animations - eh, I learned way to do it, not sure it is the best
-- [x] add automated test coverage
 - [ ] use the unsplash API to get images
-- [ ] something to add a release to github and/or update gh-pages
+- [ ] local image persistance
 
 ## Attribution
 

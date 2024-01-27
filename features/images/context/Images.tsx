@@ -4,31 +4,14 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 
-import cats from "../../../seed/cats.json";
-import dogs from "../../../seed/dogs.json";
 import { ImageData } from "../../../types/Image";
-
-const images: ImageData[] = [];
-const dogCount = dogs.length;
-const catCount = cats.length;
-let dogIdx = 0;
-let catIdx = 0;
-while (dogIdx < dogCount || catIdx < catCount) {
-  const random = Math.random();
-  if (
-    (dogIdx < dogCount && catIdx === catCount) ||
-    (dogIdx < dogCount && random < 0.49)
-  ) {
-    images.push(dogs[dogIdx]);
-    dogIdx += 1;
-  } else {
-    images.push(cats[catIdx]);
-    catIdx += 1;
-  }
-}
+import { useUnsplashAccessKey } from "../../unsplash/context/UnsplashAccessKey";
+import fetchImages from "../../unsplash/services/fetchImages";
 
 export interface ImagesContext {
   currentImage: ImageData;
@@ -41,6 +24,10 @@ export function ImagesContextProvider({
   children,
 }: PropsWithChildren): ReactNode {
   const [index, setIndex] = useState(0);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const loadingRef = useRef(false);
+  const { accessKey } = useUnsplashAccessKey();
+
   const changeImage = useCallback(() => {
     setIndex((prevIndex) => {
       const newIndex = prevIndex + 1;
@@ -50,7 +37,22 @@ export function ImagesContextProvider({
 
       return newIndex;
     });
-  }, []);
+  }, [images]);
+
+  useEffect(() => {
+    if (!loadingRef.current && index + 10 > images.length) {
+      if (accessKey) {
+        loadingRef.current = true;
+        fetchImages(accessKey)
+          .then((result) => {
+            setImages((prevImages) => [...prevImages, ...result]);
+          })
+          .finally(() => {
+            loadingRef.current = false;
+          });
+      }
+    }
+  }, [index, images, accessKey]);
 
   return (
     <Context.Provider

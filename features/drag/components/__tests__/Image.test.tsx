@@ -19,7 +19,7 @@ describe("<Image />", () => {
     const { getByTestId } = render(
       <PanGestureProvider>
         <Image />
-      </PanGestureProvider>
+      </PanGestureProvider>,
     );
 
     const image = getByTestId("image");

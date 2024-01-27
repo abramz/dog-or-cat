@@ -4,25 +4,22 @@ import { StyleSheet, View } from "react-native";
 import ActionHelpers from "./ActionHelpers";
 import ImageAttribution from "./ImageAttribution";
 import ImageStack from "./ImageStack";
-import { ImagesContextProvider } from "../../images/context/Images";
 import useScreenSide from "../hooks/useScreenSide";
 
 export default function Canvas(): ReactNode {
   const { side, setScreenSide, resetScreenSide } = useScreenSide();
 
   return (
-    <ImagesContextProvider>
-      <View style={styles.container}>
-        <ActionHelpers side={side} />
+    <View style={styles.container}>
+      <ActionHelpers side={side} />
 
-        <ImageAttribution />
+      <ImageAttribution />
 
-        <ImageStack
-          onImageUpdate={setScreenSide}
-          onImageComplete={resetScreenSide}
-        />
-      </View>
-    </ImagesContextProvider>
+      <ImageStack
+        onImageUpdate={setScreenSide}
+        onImageComplete={resetScreenSide}
+      />
+    </View>
   );
 }
 
