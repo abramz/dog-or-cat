@@ -12,6 +12,7 @@ import {
 import { ImageData } from "../../../types/Image";
 import { useUnsplashAccessKey } from "../../unsplash/context/UnsplashAccessKey";
 import fetchImages from "../../unsplash/services/fetchImages";
+import randomizeImages from "../services/randomizeImages";
 
 export interface ImagesContext {
   currentImage: ImageData;
@@ -44,8 +45,11 @@ export function ImagesContextProvider({
       if (accessKey) {
         loadingRef.current = true;
         fetchImages(accessKey)
-          .then((result) => {
-            setImages((prevImages) => [...prevImages, ...result]);
+          .then(({ dogs, cats }) => {
+            setImages((prevImages) => [
+              ...prevImages,
+              ...randomizeImages(dogs, cats),
+            ]);
           })
           .finally(() => {
             loadingRef.current = false;
