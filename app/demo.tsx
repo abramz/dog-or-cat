@@ -8,7 +8,7 @@ import EnsureAssetLoaded from "../features/demo/gates/EnsureAssetLoaded";
 export default function DemoScreen(): ReactNode {
   return (
     <EnsureAssetLoaded
-      moduleId={require("../assets/images/dogorcat_howto.png")}
+      moduleId={require("../assets/videos/dogorcat_howto.webm")}
       render={(asset: Asset) => (
         <EnsureSplashScreenHidden>
           <Demo demoAsset={asset} />

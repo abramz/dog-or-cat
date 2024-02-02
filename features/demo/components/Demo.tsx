@@ -1,10 +1,10 @@
 import { Asset } from "expo-asset";
-import { Image } from "expo-image";
 import { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
 import ContinueDemo from "./ContinueDemo";
 import EnsureDemoRuntime from "../gates/EnsureDemoRuntime";
+import { ResizeMode, Video } from "expo-av";
 
 export interface DemoProps {
   demoAsset: Asset;
@@ -16,7 +16,15 @@ export default function Demo({ demoAsset }: DemoProps): ReactNode {
       <EnsureDemoRuntime
         render={(enabled, onDemoComplete) => (
           <ContinueDemo enabled={enabled} onComplete={onDemoComplete}>
-            <Image style={styles.image} source={demoAsset} />
+            {/* <Image style={styles.image} source={demoAsset} /> */}
+            <Video
+              style={styles.image}
+              source={demoAsset}
+              resizeMode={ResizeMode.CONTAIN}
+              shouldPlay
+              isLooping
+              isMuted
+            />
           </ContinueDemo>
         )}
       />
@@ -31,10 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#b7cece",
   },
   image: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    width: 500,
+    height: "100%",
   },
 });
