@@ -10,6 +10,7 @@ import {
 
 import AnimatedExpoImage from "./AnimatedImage";
 import { BASE_ELEVATION, HEIGHT_SCALE, WIDTH_SCALE } from "../../../constants";
+import { UNKNOWN_IMAGE_ALT_TEXT } from "../../../constants/strings";
 import { ImageData } from "../../../types/Image";
 import { usePanGesture } from "../context/PanGesture";
 
@@ -49,7 +50,7 @@ export function InternalImage({
       style={[styles.image, { width, maxHeight }, animatedStyle]}
       placeholder={image.blurHash}
       source={image.imageUrl}
-      accessibilityLabel={image.altText}
+      accessibilityLabel={image.altText ?? UNKNOWN_IMAGE_ALT_TEXT}
       entering={
         Platform.OS === "web"
           ? undefined

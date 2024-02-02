@@ -14,3 +14,5 @@ export const COLLECTION_INSTRUCTIONS = `In order to get a key, follow the direct
 Once completed, go to the application in your dashboard, [here|https://unsplash.com/oauth/applications], and copy the "Access Key" for use in this app. 
 
 In order to comply with the Unsplash terms, this key will be stored securly on your device. As secure storage is not possible in web browsers, this will not be saved in the browser.`;
+
+export const UNKNOWN_IMAGE_ALT_TEXT = "unknown";

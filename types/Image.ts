@@ -9,5 +9,5 @@ export interface ImageData {
   imageUrl: string;
   accountName: string;
   accountUrl: string;
-  altText: string;
+  altText?: string;
 }
