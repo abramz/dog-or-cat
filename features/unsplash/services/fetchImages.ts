@@ -1,10 +1,11 @@
 import { createApi } from "unsplash-js";
 
 import { ImageData } from "../../../types/Image";
+import { FetchImagesResult } from "../types/FetchImagesResult";
 
 async function request(query: string, accessKey: string): Promise<ImageData[]> {
   const api = createApi({
-    accessKey: accessKey as string, // this isn't loaded if the access key is not defined,
+    accessKey,
   });
   console.log(`Fetching images for "${query}"`);
   const result = await api.photos.getRandom({
@@ -30,37 +31,18 @@ async function request(query: string, accessKey: string): Promise<ImageData[]> {
       imageUrl: d.urls.small,
       accountName: d.user.name,
       accountUrl: d.user.links.html,
-      altText: d.alt_description ?? "unknown picture",
+      altText: d.alt_description ?? undefined,
     }),
   );
 }
 
 export default async function fetchImages(
   accessKey: string,
-): Promise<ImageData[]> {
-  const [dogResults, catResults] = await Promise.all([
+): Promise<FetchImagesResult> {
+  const [dogs, cats] = await Promise.all([
     request("dog", accessKey),
     request("cat", accessKey),
   ]);
 
-  const images: ImageData[] = [];
-  const dogCount = dogResults.length;
-  const catCount = catResults.length;
-  let dogIdx = 0;
-  let catIdx = 0;
-  while (dogIdx < dogCount || catIdx < catCount) {
-    const random = Math.random();
-    if (
-      (dogIdx < dogCount && catIdx === catCount) ||
-      (dogIdx < dogCount && random < 0.49)
-    ) {
-      images.push(dogResults[dogIdx]);
-      dogIdx += 1;
-    } else {
-      images.push(catResults[catIdx]);
-      catIdx += 1;
-    }
-  }
-
-  return images;
+  return { dogs, cats };
 }
