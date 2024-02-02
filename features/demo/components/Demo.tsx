@@ -1,10 +1,10 @@
 import { Asset } from "expo-asset";
+import { ResizeMode, Video } from "expo-av";
 import { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
 import ContinueDemo from "./ContinueDemo";
 import EnsureDemoRuntime from "../gates/EnsureDemoRuntime";
-import { ResizeMode, Video } from "expo-av";
 
 export interface DemoProps {
   demoAsset: Asset;

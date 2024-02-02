@@ -43,7 +43,7 @@ export default function SimpleMarkdown({
     children.push(
       <Text style={style} key={1}>
         {text}
-      </Text>
+      </Text>,
     );
   } else {
     const rest = text.split(LINK_REGEX);
@@ -63,7 +63,7 @@ export default function SimpleMarkdown({
       children.push(
         <Link key={index + "-link"} href={parts[1]} style={style ?? {}}>
           {parts[0]}
-        </Link>
+        </Link>,
       );
     });
   }

@@ -1,3 +1,5 @@
+const COVERAGE_DIRECTORIES = ["components", "features"];
+
 module.exports = {
   preset: "jest-expo",
   transformIgnorePatterns: [
@@ -5,4 +7,8 @@ module.exports = {
   ],
   setupFiles: ["./node_modules/react-native-gesture-handler/jestSetup.js"],
   setupFilesAfterEnv: ["./testing/jest-setup.ts"],
+  collectCoverageFrom: [
+    ...COVERAGE_DIRECTORIES.map((d) => `${d}/**/*.{js,jsx,ts,tsx}`),
+    "!**/types/**",
+  ],
 };
