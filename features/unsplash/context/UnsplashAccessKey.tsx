@@ -1,4 +1,3 @@
-import * as SecureStore from "expo-secure-store";
 import {
   PropsWithChildren,
   ReactNode,
@@ -8,7 +7,8 @@ import {
   useState,
 } from "react";
 
-import { UNSPLASH_ACCESS_KEY_STORAGE_KEY } from "../../../constants";
+import retrieveAccessKey from "../services/retrieveAccessKey";
+import saveAccessKey from "../services/saveAccessKey";
 import { UnsplashAccessKeyContext } from "../types/UnsplashAccessKeyContext";
 
 const Context = createContext<UnsplashAccessKeyContext | undefined>(undefined);
@@ -25,31 +25,12 @@ export function UnsplashAccessKeyProvider({
       return accessKey;
     }
 
-    try {
-      const result = await SecureStore.getItemAsync(
-        UNSPLASH_ACCESS_KEY_STORAGE_KEY,
-      );
-      setAccessKey(result);
-
-      return result;
-    } catch {
-      // so far the only error I have encountered is being unable to decrypt the key because app version have changed
-      // I *hope* this would only happen switching between dev/prod version like it did to me but we will find out.
-      // this is *good enough* for the purposes of a toy that no one will ever use but me
-      await SecureStore.deleteItemAsync(UNSPLASH_ACCESS_KEY_STORAGE_KEY);
-
-      // retry
-      const result = await SecureStore.getItemAsync(
-        UNSPLASH_ACCESS_KEY_STORAGE_KEY,
-      );
-      setAccessKey(result);
-
-      return result;
-    }
+    const result = await retrieveAccessKey();
+    setAccessKey(result);
   }, [accessKey]);
 
   const saveKey = useCallback(async (value: string) => {
-    await SecureStore.setItemAsync(UNSPLASH_ACCESS_KEY_STORAGE_KEY, value);
+    await saveAccessKey(value);
 
     setAccessKey(value);
   }, []);
