@@ -11,7 +11,7 @@ export default function EnsureImagesInitialized({
   if (!currentImage) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" color="#000" testID="loading" />
       </View>
     );
   }
