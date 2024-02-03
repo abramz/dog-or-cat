@@ -30,6 +30,7 @@ export default function CollectAccessKey(): ReactNode {
         returnKeyType="done"
         onSubmitEditing={handleSubmit}
         secureTextEntry
+        testID="input"
       />
       <View />
       <SimpleMarkdown text={COLLECTION_INSTRUCTIONS} style={styles.text} />
