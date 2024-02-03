@@ -16,9 +16,8 @@ export default function Demo({ demoAsset }: DemoProps): ReactNode {
       <EnsureDemoRuntime
         render={(enabled, onDemoComplete) => (
           <ContinueDemo enabled={enabled} onComplete={onDemoComplete}>
-            {/* <Image style={styles.image} source={demoAsset} /> */}
             <Video
-              style={styles.image}
+              style={styles.demo}
               source={demoAsset}
               resizeMode={ResizeMode.CONTAIN}
               shouldPlay
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#b7cece",
   },
-  image: {
+  demo: {
     width: 500,
     height: "100%",
   },
