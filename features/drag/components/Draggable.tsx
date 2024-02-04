@@ -42,7 +42,7 @@ export function DraggableView({ children }: PropsWithChildren): ReactNode {
 
   return (
     <Animated.View
-      style={[styles.image, { width, maxHeight }, animatedStyle]}
+      style={[styles.container, { width, maxHeight }, animatedStyle]}
       entering={
         Platform.OS === "web"
           ? undefined
@@ -75,7 +75,8 @@ export default function Draggable({
 }
 
 const styles = StyleSheet.create({
-  image: {
+  container: {
+    position: "absolute",
     height: "100%",
     maxWidth: 720,
     borderRadius: 25,

@@ -50,7 +50,11 @@ export function PanHandlerInternal({
         runOnJS(onUpdate)(ScreenSide.none);
       }
 
-      rotation.value = `${horizontalProgress * 10}deg`;
+      if (horizontalProgress > 0) {
+        rotation.value = `${Math.min(horizontalProgress * 5, 25)}deg`;
+      } else {
+        rotation.value = `${Math.max(horizontalProgress * 5, -25)}deg`;
+      }
     })
     .onEnd((e) => {
       // math is the same as above, ideally this would be in a worklet or something that i can call from the UI thread

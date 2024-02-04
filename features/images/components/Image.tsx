@@ -23,5 +23,6 @@ export default function Image({ image }: ImageProps): ReactNode {
 const styles = StyleSheet.create({
   image: {
     flex: 1,
+    pointerEvents: "none",
   },
 });

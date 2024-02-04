@@ -8,7 +8,6 @@ NB: Best bet is to download the source and build the app (see below). This is te
 
 https://github.com/abramz/dog-or-cat/assets/4075481/75cda4e9-159c-4d0c-a440-5466c7484bf1
 
-
 ## Installing the app
 
 This is set up using expo & eas, so it should be similar to any other project using those tools.
@@ -33,7 +32,6 @@ If the development version is installed, it will need to connect to the developm
 
 ## TODO
 
-- [ ] proper animation on web
 - [ ] local image persistance
 
 ## Attribution
