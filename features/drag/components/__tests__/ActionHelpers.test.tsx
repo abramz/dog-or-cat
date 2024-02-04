@@ -10,7 +10,7 @@ import ActionHelpers from "../ActionHelpers";
 
 describe("<ActionHelpers />", () => {
   it("should show nothing if there is no matching side", () => {
-    const { queryByText } = render(<ActionHelpers side={ScreenSide.middle} />);
+    const { queryByText } = render(<ActionHelpers side={ScreenSide.none} />);
 
     expect(queryByText(ACTION_HELPER_DOG)).not.toBeVisible();
     expect(queryByText(ACTION_HELPER_CAT)).not.toBeVisible();

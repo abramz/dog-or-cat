@@ -9,9 +9,9 @@ export interface UseScreenSideReturnValue {
 }
 
 export default function useScreenSide(): UseScreenSideReturnValue {
-  const [side, setScreenSide] = useState<ScreenSide>(ScreenSide.middle);
+  const [side, setScreenSide] = useState<ScreenSide>(ScreenSide.none);
   const resetScreenSide = useCallback(() => {
-    setScreenSide(ScreenSide.middle);
+    setScreenSide(ScreenSide.none);
   }, []);
 
   return {

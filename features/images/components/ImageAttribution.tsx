@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import SimpleMarkdown from "../../../components/SimpleMarkdown";
 import { REPLACE_ARTIST, REPLACE_ARTIST_HREF } from "../../../constants";
 import { ATTRIBUTION } from "../../../constants/strings";
-import { useImages } from "../../images/context/Images";
+import { useImages } from "../context/Images";
 
 export default function ImageAttribution(): ReactNode {
   const { currentImage } = useImages();

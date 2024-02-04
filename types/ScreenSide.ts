@@ -1,5 +1,5 @@
 export enum ScreenSide {
-  middle,
+  none,
   left,
   right,
   top,
