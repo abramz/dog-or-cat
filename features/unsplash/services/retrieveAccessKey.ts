@@ -10,8 +10,8 @@ export default async function retrieveAccessKey(): Promise<string | null> {
 
     // temp var is necessary because we want to actually await here and catch the error
     return result;
-  } catch {
-    /* handle below */
+  } catch (error) {
+    console.log(error);
   }
 
   // so far the only error I have encountered is being unable to decrypt the key because app version have changed

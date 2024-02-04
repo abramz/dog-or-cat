@@ -6,7 +6,8 @@ export const END_POSITION_HORIZONTAL = 300;
 export const END_THRESHOLD_HORIZONTAL = 100;
 export const END_POSITION_VERTICAL = 500;
 export const END_THRESHOLD_VERTICAL = 100;
-
+export const ROTATION_MULTIPLIER = 10;
+export const ROTATION_MAX_DEG = 15;
 export const WIDTH_SCALE = 0.9;
 export const HEIGHT_SCALE = 0.8;
 

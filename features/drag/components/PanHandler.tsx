@@ -7,6 +7,8 @@ import {
   DRAG_ELEVATION,
   END_THRESHOLD_HORIZONTAL,
   END_THRESHOLD_VERTICAL,
+  ROTATION_MAX_DEG,
+  ROTATION_MULTIPLIER,
 } from "../../../constants";
 import { ScreenSide } from "../../../types/ScreenSide";
 import { PanGestureContext, usePanGesture } from "../context/PanGesture";
@@ -51,9 +53,9 @@ export function PanHandlerInternal({
       }
 
       if (horizontalProgress > 0) {
-        rotation.value = `${Math.min(horizontalProgress * 5, 25)}deg`;
+        rotation.value = `${Math.min(horizontalProgress * ROTATION_MULTIPLIER, ROTATION_MAX_DEG)}deg`;
       } else {
-        rotation.value = `${Math.max(horizontalProgress * 5, -25)}deg`;
+        rotation.value = `${Math.max(horizontalProgress * ROTATION_MULTIPLIER, -1 * ROTATION_MAX_DEG)}deg`;
       }
     })
     .onEnd((e) => {

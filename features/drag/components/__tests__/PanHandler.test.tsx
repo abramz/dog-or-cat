@@ -100,7 +100,7 @@ describe("<PanHandler />", () => {
 
   it("should update the rotation based on progress in the X direction", () => {
     const sequence = [0, -50, -100, -50, -0, 50, 100];
-    const rotations = sequence.map((v) => `${v / 10}deg`);
+    const rotations = [0, -5, -10, -5, 0, 5, 10].map((v) => `${v}deg`);
     render(<GestureComponent {...props} />);
 
     fireGestureHandler<PanGesture>(getByGestureTestId("pan-gesture"), [
