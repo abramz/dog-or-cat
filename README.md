@@ -6,7 +6,8 @@ NB: Best bet is to download the source and build the app (see below). This is te
 
 ## Demo
 
-https://github.com/abramz/dog-or-cat/assets/4075481/75cda4e9-159c-4d0c-a440-5466c7484bf1
+https://github.com/abramz/dog-or-cat/assets/4075481/2565c3e2-12a6-4dc4-997c-dcad426bf177
+
 
 ## Installing the app
 
