@@ -16,3 +16,9 @@ Once completed, go to the application in your dashboard, [here|https://unsplash.
 In order to comply with the Unsplash terms, this key will be stored securly on your device. As secure storage is not possible in web browsers, this will not be saved in the browser.`;
 
 export const UNKNOWN_IMAGE_ALT_TEXT = "unknown";
+
+export const DOG_INSTRUCTIONS = "Drag dogs to the right";
+
+export const CAT_INSTRUCTIONS = "Drag cats to the left";
+
+export const OTHER_INSTRUCTIONS = "Drag anything else up";

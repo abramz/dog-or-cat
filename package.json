@@ -10,7 +10,8 @@
     "test": "jest",
     "lint": "eslint .",
     "gh-pages": "gh-pages -t -d dist",
-    "export-web": "expo export -p web"
+    "export-web": "expo export -p web",
+    "publish": "npm run export-web && npm run gh-pages"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -20,6 +21,7 @@
     "@react-navigation/native": "^6.1.9",
     "expo": "^50.0.2",
     "expo-asset": "~9.0.2",
+    "expo-av": "~13.10.4",
     "expo-dev-client": "~3.3.6",
     "expo-font": "~11.10.2",
     "expo-image": "~1.10.4",
@@ -38,9 +40,9 @@
     "react-native-reanimated": "~3.6.0",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
+    "react-native-svg": "^15.1.0",
     "react-native-web": "~0.19.6",
-    "unsplash-js": "^7.0.19",
-    "expo-av": "~13.10.4"
+    "unsplash-js": "^7.0.19"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
