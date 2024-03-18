@@ -2,7 +2,7 @@
 
 A little mobile toy to have some fun with react-native/expo.
 
-NB: Best bet is to download the source and build the app (see below). This is tested on an android device so unknown if this works on iOS. Definitely doesn't work on desktop web and animations don't work on mobile web.
+NB: Best bet is to download the source and build the app (see below). This is tested on an android device & desktop web so unknown if this works on iOS.
 
 ## Demo
 

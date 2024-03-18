@@ -49,9 +49,10 @@ export default function Demo(): ReactNode {
   const tap = Gesture.Tap()
     .withTestId("continue-demo")
     .runOnJS(true)
-    .enabled(allowContinue)
     .onEnd(async () => {
-      setHasSeenDemo("1").then(() => router.navigate("/"));
+      if (allowContinue) {
+        setHasSeenDemo("1").then(() => router.navigate("/"));
+      }
     });
 
   useEffect(() => {
