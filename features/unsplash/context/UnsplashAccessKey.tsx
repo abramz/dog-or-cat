@@ -27,6 +27,7 @@ export function UnsplashAccessKeyProvider({
 
     const result = await retrieveAccessKey();
     setAccessKey(result);
+    return result;
   }, [accessKey]);
 
   const saveKey = useCallback(async (value: string) => {

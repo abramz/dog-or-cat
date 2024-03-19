@@ -7,6 +7,7 @@ import {
 
 export default async function saveAccessKey(accessKey: string): Promise<void> {
   if (accessKey === SKIP_ACCESS_KEY) {
+    console.log("skipping because it is not a real access key");
     return;
   }
 

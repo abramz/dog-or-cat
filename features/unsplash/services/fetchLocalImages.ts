@@ -16,9 +16,9 @@ export default async function fetchLocalImages(): Promise<FetchImagesResult> {
     ]);
 
     return [
-      [{ ...imageData.dog, imageUrl: dogUri! }],
-      [{ ...imageData.cat, imageUrl: catUri! }],
-      [{ ...imageData.rabbit, imageUrl: rabbituri! }],
+      [{ ...imageData.dog, imageUrl: dogUri!, blurHash: null }],
+      [{ ...imageData.cat, imageUrl: catUri!, blurHash: null }],
+      [{ ...imageData.rabbit, imageUrl: rabbituri!, blurHash: null }],
     ];
   } catch (error) {
     console.error(error);
