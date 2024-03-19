@@ -1,7 +1,14 @@
 import * as SecureStore from "expo-secure-store";
 
-import { UNSPLASH_ACCESS_KEY_STORAGE_KEY } from "../../../constants";
+import {
+  SKIP_ACCESS_KEY,
+  UNSPLASH_ACCESS_KEY_STORAGE_KEY,
+} from "../../../constants";
 
 export default async function saveAccessKey(accessKey: string): Promise<void> {
+  if (accessKey === SKIP_ACCESS_KEY) {
+    return;
+  }
+
   await SecureStore.setItemAsync(UNSPLASH_ACCESS_KEY_STORAGE_KEY, accessKey);
 }

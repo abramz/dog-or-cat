@@ -1,5 +1,7 @@
 import { createApi } from "unsplash-js";
 
+import fetchLocalImages from "./fetchLocalImages";
+import { SKIP_ACCESS_KEY } from "../../../constants";
 import { ImageData } from "../../../types/Image";
 import { FetchImagesResult } from "../types/FetchImagesResult";
 
@@ -36,13 +38,12 @@ async function request(query: string, accessKey: string): Promise<ImageData[]> {
   );
 }
 
-export default async function fetchImages(
+export default function fetchImages(
   accessKey: string,
 ): Promise<FetchImagesResult> {
-  const [dogs, cats] = await Promise.all([
-    request("dog", accessKey),
-    request("cat", accessKey),
-  ]);
+  if (accessKey === SKIP_ACCESS_KEY) {
+    return fetchLocalImages();
+  }
 
-  return { dogs, cats };
+  return Promise.all([request("dog", accessKey), request("cat", accessKey)]);
 }

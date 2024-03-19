@@ -16,6 +16,7 @@ export default function Image({ image }: ImageProps): ReactNode {
       placeholder={image.blurHash}
       source={image.imageUrl}
       accessibilityLabel={image.altText ?? UNKNOWN_IMAGE_ALT_TEXT}
+      contentFit="contain"
     />
   );
 }

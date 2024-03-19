@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import SimpleMarkdown from "../../../components/SimpleMarkdown";
 import { REPLACE_ARTIST, REPLACE_ARTIST_HREF } from "../../../constants";
-import { ATTRIBUTION } from "../../../constants/strings";
+import { ATTRIBUTION, STOCK_ATTRIBUTION } from "../../../constants/strings";
 import { useImages } from "../context/Images";
 
 export default function ImageAttribution(): ReactNode {
@@ -12,10 +12,9 @@ export default function ImageAttribution(): ReactNode {
   return (
     <View style={styles.container}>
       <SimpleMarkdown
-        text={ATTRIBUTION.replace(
-          REPLACE_ARTIST,
-          currentImage.accountName,
-        ).replace(REPLACE_ARTIST_HREF, currentImage.accountUrl)}
+        text={(currentImage.stock ? STOCK_ATTRIBUTION : ATTRIBUTION)
+          .replace(REPLACE_ARTIST, currentImage.accountName)
+          .replace(REPLACE_ARTIST_HREF, currentImage.accountUrl)}
       />
     </View>
   );

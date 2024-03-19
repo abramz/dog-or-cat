@@ -7,6 +7,9 @@ export const DEMO_TAP_TO_CONTINUE = "Tap to continue";
 export const ATTRIBUTION =
   "Photo by [{ARTIST}|{ARTIST_HREF}] on [Unsplash|https://unsplash.com/?utm_source=dog-or-cat&utm_medium=referral]";
 
+export const STOCK_ATTRIBUTION =
+  "Photo by [{ARTIST}|{ARTIST_HREF}] on [Openmoji|https://openmoji.org]";
+
 export const COLLECTION_REQUEST_UNSPLASH_KEY =
   "Please provide an access key for an Unsplash application";
 
@@ -22,3 +25,5 @@ export const DOG_INSTRUCTIONS = "Drag dogs to the right";
 export const CAT_INSTRUCTIONS = "Drag cats to the left";
 
 export const OTHER_INSTRUCTIONS = "Drag anything else up";
+
+export const SKIP_ACCESS_KEY_TEXT = "Use some stock images instead";

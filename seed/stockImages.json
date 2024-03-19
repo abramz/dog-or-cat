@@ -1,0 +1,26 @@
+{
+  "rabbit": {
+    "stock": true,
+    "accountName": "Sofie Ascherl",
+    "accountUrl": "https://openmoji.org/library/emoji-1F407/",
+    "blurHash": "LHNmydR%~WRj%MD*ay?b~qaxIU%M",
+    "id": "1F407",
+    "altText": "A rabbit, a hoppy mammal with long ears. Depicted as a white, gray, or brown rabbit in full profile facing left with pink ears and a short tail, sitting on its long, hind legs or on all fours."
+  },
+  "cat": {
+    "stock": true,
+    "accountName": "Sofie Ascherl",
+    "accountUrl": "https://openmoji.org/library/emoji-1F408/",
+    "blurHash": "LeOy-EjYkrWXx[juV@flyZkDivoe",
+    "id": "1F408",
+    "altText": "A domestic cat, beloved as a pet. Generally depicted as a light-orange cat with stripes, as a tabby, in full profile on all fours facing left, with its long tell held upright."
+  },
+  "dog": {
+    "stock": true,
+    "accountName": "Sofie Ascherl",
+    "accountUrl": "https://openmoji.org/library/emoji-1F415/",
+    "blurHash": "LcOpDEaekskDxuaeWBbbu6oeiujY",
+    "id": "1F415",
+    "altText": "A dog, a faithful, beloved pet canine. Depicted as a light-brown dog, of various breeds, in full profile on all fours facing left, with a long, curled tail held upright and pointed or floppy ears."
+  }
+}

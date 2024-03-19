@@ -1,6 +1,3 @@
 import { ImageData } from "../../../types/Image";
 
-export interface FetchImagesResult {
-  dogs: ImageData[];
-  cats: ImageData[];
-}
+export type FetchImagesResult = ImageData[][];

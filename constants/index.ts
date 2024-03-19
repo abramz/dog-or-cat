@@ -19,3 +19,5 @@ export const UNSPLASH_ACCESS_KEY_STORAGE_KEY = "dog-or-cat-unsplash-key";
 
 export const REPLACE_ARTIST = "{ARTIST}";
 export const REPLACE_ARTIST_HREF = `{ARTIST_HREF}`;
+
+export const SKIP_ACCESS_KEY = "dog-or-cat-has-SKIP_ACCESS_KEY";

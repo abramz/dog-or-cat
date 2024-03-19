@@ -1,11 +1,14 @@
 import { router } from "expo-router";
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useState } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 
+import Button from "../../../components/Button";
 import SimpleMarkdown from "../../../components/SimpleMarkdown";
+import { SKIP_ACCESS_KEY } from "../../../constants";
 import {
   COLLECTION_INSTRUCTIONS,
   COLLECTION_REQUEST_UNSPLASH_KEY,
+  SKIP_ACCESS_KEY_TEXT,
 } from "../../../constants/strings";
 import { useUnsplashAccessKey } from "../context/UnsplashAccessKey";
 
@@ -14,11 +17,11 @@ export default function CollectAccessKey(): ReactNode {
 
   const { saveKey } = useUnsplashAccessKey();
 
-  const handleSubmit = useCallback(async () => {
-    await saveKey(value);
+  async function handleSubmit(override?: string) {
+    await saveKey(override ?? value);
 
     router.navigate("/");
-  }, [saveKey, value]);
+  }
 
   return (
     <View style={styles.container}>
@@ -28,12 +31,19 @@ export default function CollectAccessKey(): ReactNode {
         onChangeText={setValue}
         value={value}
         returnKeyType="done"
-        onSubmitEditing={handleSubmit}
+        onSubmitEditing={() => handleSubmit()}
         secureTextEntry
         testID="input"
       />
       <View />
       <SimpleMarkdown text={COLLECTION_INSTRUCTIONS} style={styles.text} />
+
+      <Button
+        onPress={() => handleSubmit(SKIP_ACCESS_KEY)}
+        testId="skip-access-key"
+      >
+        {SKIP_ACCESS_KEY_TEXT}
+      </Button>
     </View>
   );
 }

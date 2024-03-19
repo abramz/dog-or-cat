@@ -5,4 +5,5 @@ export interface ImageData {
   accountName: string;
   accountUrl: string;
   altText?: string;
+  stock?: boolean;
 }

@@ -1,26 +1,29 @@
 import { ImageData } from "../../../types/Image";
 
-export default function randomizeImages(
-  dogImages: ImageData[],
-  catImages: ImageData[],
-): ImageData[] {
+export default function randomizeImages(...sets: ImageData[][]): ImageData[] {
   const images: ImageData[] = [];
-  const dogCount = dogImages.length;
-  const catCount = catImages.length;
-  let dogIdx = 0;
-  let catIdx = 0;
-  while (dogIdx < dogCount || catIdx < catCount) {
-    const random = Math.random();
-    if (
-      (dogIdx < dogCount && catIdx === catCount) ||
-      (dogIdx < dogCount && random < 0.5)
-    ) {
-      images.push(dogImages[dogIdx]);
-      dogIdx += 1;
-    } else {
-      images.push(catImages[catIdx]);
-      catIdx += 1;
-    }
+  const maxLength = sets.reduce(
+    (max, current) => Math.max(max, current.length),
+    0,
+  );
+
+  // interleave all the image sets into 1 array
+  for (let i = 0; i < maxLength; i++) {
+    sets.forEach((set) => {
+      const item = set[i];
+
+      if (item) {
+        images.push(item);
+      }
+    });
+  }
+
+  // shuffle the array of images
+  for (let i = images.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = images[i];
+    images[i] = images[j];
+    images[j] = temp;
   }
 
   return images;

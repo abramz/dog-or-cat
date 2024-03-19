@@ -45,10 +45,10 @@ export function ImagesContextProvider({
       if (accessKey) {
         loadingRef.current = true;
         fetchImages(accessKey)
-          .then(({ dogs, cats }) => {
+          .then((imageSets) => {
             setImages((prevImages) => [
               ...prevImages,
-              ...randomizeImages(dogs, cats),
+              ...randomizeImages(...imageSets),
             ]);
           })
           .finally(() => {
