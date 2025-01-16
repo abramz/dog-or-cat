@@ -31,6 +31,6 @@ If the development version is installed, it will need to connect to the developm
 
 ## Attribution
 
-- The stoack images, icons, splash, and demo in assets/images use (potentially) modified (resized, mashed-together) graphics from designed by [OpenMoji](https://openmoji.org/) – the open-source emoji and icon project. License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#)
+- The stock images, icons, splash, and demo in assets/images use modified (resized, mashed-together) graphics from [OpenMoji](https://openmoji.org/) – the open-source emoji and icon project. License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#)
 - The font used is Titan One from [Rodrigo Fuenzalida](https://fonts.google.com/specimen/Titan+One/about)
 - All other images in the app are from [unsplash](https://unsplash.com) and are attributed as such in the app itself
